@@ -1,55 +1,40 @@
-var notification = document.querySelector('notificaton');
-
 $(document).ready(function () {
     //listen for save button clicks
     $('.saveBtn').on('click', function () {
         //get nearby values
+        var time = $(this).parent().attr('id');
         var value = $(this).siblings('.description').val();
-        var time = $(this).parent().attr('id');        
-
         //save in localStorage
         localStorage.setItem(time, value);
 
-        //Show notification that item was saved to localStorage by adding class 'show'
-        $('.notification').addClass('show');
-
-        //Timeout to remove 'show' class after 5 seconds
+        //show notification that item was saved to localStorage by adding class 'show'
+        $('.notification').removeClass('hide');
+        //Timeout to remove 'show' class after 5 seconds ---> use setTimeout
         setTimeout(function () {
-            $('.notification').removeClass('show');
+            $('.notification').addClass('hide');
         }, 5000);
     });
 
-    function hourUpdater () {
-        //get current number of hours (preferably with moment.js)
-        var currentHour = moment().hours();
-        console.log('currentHour', currentHour);
+    function hourUpdater() {
+        //get current number of hours
+        var currentHour = moment().hours() - 8;
 
-        // loop over time blocks ---> https:api.jquery.com/each
-        var eachFunction = function() {
-            var _this = $(this);
-            console.log('_this', _this);
-            var blockHour = parseInt($(this).attr('data-hour'));
-            console.log('blockHour', blockHour);
-
+        //loop over time blocks
+        $('.time-block').each(function () {
+            var blockHour = parseInt($(this).attr('id').split('-')[1]);
 
             //check if we've moved past this time
             if (blockHour < currentHour) {
                 $(this).addClass('past');
-            }
-            else if (blockHour === currentHour) {
+            } else if (blockHour === currentHour) {
                 $(this).removeClass('past');
                 $(this).addClass('present');
-            }
-            else {
+            } else {
                 $(this).removeClass('past');
                 $(this).removeClass('present');
                 $(this).addClass('future');
             }
-        }
-
-        var timeBlock = $('.time-block').each(eachFunction)
-        console.log('timeBlock', timeBlock);
-
+        });
     }
 
     hourUpdater();
@@ -59,7 +44,6 @@ $(document).ready(function () {
 
     //load any saved data from localStorage
     $('#hour-9 .description').val(localStorage.getItem('hour-9'));
-    //need to repeat line 21 for all other hours
     $('#hour-10 .description').val(localStorage.getItem('hour-10'));
     $('#hour-11 .description').val(localStorage.getItem('hour-11'));
     $('#hour-12 .description').val(localStorage.getItem('hour-12'));
