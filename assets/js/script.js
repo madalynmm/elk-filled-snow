@@ -17,7 +17,7 @@ $(document).ready(function () {
 
     function hourUpdater() {
         //get current number of hours
-        var currentHour = moment().hours() - 8;
+        var currentHour = moment().hours();
 
         //loop over time blocks
         $('.time-block').each(function () {
