@@ -8,7 +8,6 @@ This is a simple day planner application that allows the user to add and save te
 
 ![Daily Appointment Scheduler.](./assets/images/Screenshot%20(24).png)
 
-
 ## Link to Deployed Application:
 
-[Coding Quiz](https://madalynmm.github.io/elk-filled-snow/)
+[Work Day Scheduler](https://madalynmm.github.io/elk-filled-snow/)
